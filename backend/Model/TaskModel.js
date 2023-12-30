@@ -1,31 +1,30 @@
 import mongoose from "mongoose";
 
-// email, password
-
 const TaskSchema = new mongoose.Schema({
   userOwner: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "User Collection",
+    ref: "user collection",
     required: true,
   },
   task: {
     type: String,
-    required: false,
+    required: true,
   },
   deadline: {
     type: Date,
     required: false,
-    default: Date.now()
+    default: Date.now(),
   },
   description: {
     type: String,
+    default: "",
   },
- // incomplete, complete, archive, delete, not started
+  // incomplete, complete, archive, delete, not started
   status: {
-    type: Boolean,
+    type: String,
     required: false,
-    enum: ['incomplete', 'complete', 'archive', 'delete', 'not started'],
-    default: 'not started'
+    enum: ["incomplete", "complete", "archive", "delete", "notStarted"],
+    default: "notStarted",
   },
 });
 

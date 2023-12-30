@@ -4,19 +4,19 @@ import { UserModel } from "../Model/UserModel.js";
 export const createTask = async (req, res) => {
   try {
     const { task, deadline, status, description, userOwner } = req.body;
-    // const findUserOwner = await UserModel.findById(userOwner);
-    // if (!findUserOwner){
-    //   return res.status(404).json({ error: "user not found" });
-    // }
+    const findUserOwner = await UserModel.findById(userOwner);
+    if (!findUserOwner){
+      return res.status(404).json({ error: "user not found" });
+    }
 
-    await new TaskModel.create({
+    const createTask = await TaskModel.create({
       task,
-      // deadline,
-      // status,
+      deadline,
+      status,
        description,
        userOwner,
     });
-    res.status(201).json({message: "New Task Created", task, deadline, status, description, userOwner});
+    return res.status(201).json({message: "New Task Created", createTask});
   } catch (error) {
     res.status(500).json({ error: "request not sent" });
   }
