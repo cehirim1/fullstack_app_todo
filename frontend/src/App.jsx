@@ -1,14 +1,14 @@
 import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
 
 const App = () => {
-  // tailwind basics,
-  // media queries
-  // JIT
-  // purge
   return (
-    <div className="text-8xl font-bold text-orange-500 md:text-emerald-500 lg:text-blue-500">
-      App
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+      </Routes>
+    </BrowserRouter>
   );
 };
 
