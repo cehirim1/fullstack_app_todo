@@ -1,8 +1,7 @@
-# React + Vite
+# Homework
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## frontend
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+* create navbar w/ options home, login, register, logout, profile
+* make all of those pages that are on the navbar
+* create login page with the shadcn ui on the exact center
