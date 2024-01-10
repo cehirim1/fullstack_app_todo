@@ -1,5 +1,5 @@
 import express from "express";
-import { createUser } from "./Controller/AuthController.js";
+import { createUser, loginUser } from "./Controller/AuthController.js";
 import {
   createTask,
   deleteTask,
@@ -24,6 +24,7 @@ app.delete("/delete-task/:id", deleteTask);
 app.put("/update-task/:id", updateTask);
 
 app.post("/auth/signup", createUser);
+app.post("/auth/login", loginUser);
 
 app.listen(5001, () => {
   console.log("port is running on 5001");

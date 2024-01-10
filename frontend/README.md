@@ -11,6 +11,9 @@
 * routes ✅
 * dynamic routes
 * protected routes ✅
-* jwt tokens
+* jwt tokens generation ✅
+* jwt tokens authentication
 * login feature
-* RTK Query (redux toolkit query)
+* RTK Query (redux toolkit query) ✅
+* rtk query tags
+* stripe payments
