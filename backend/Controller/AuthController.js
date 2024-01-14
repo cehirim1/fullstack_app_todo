@@ -40,3 +40,6 @@ export const loginUser = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
+
+//crud with API - frontend
+//login and logout logic for frontend an backend 
