@@ -1,34 +1,19 @@
-import { Button } from "@/components/ui/button";
-import React, { useEffect } from "react";
-import { LuMoonStar } from "react-icons/lu";
-import { makeItToDark, makeItToLight } from "@/store/slice/systemSlice";
-import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+
 
 const Home = () => {
-  const dispatch = useDispatch();
 
-  const theme = useSelector((state) => state.system.mode);
-  console.log(theme);
+return(
+  <div>
+    
+  <Link to="/login" className="flex p-5 hover:text-blue-700 font-semibold">Login</Link>
+  <div className="font-semibold flex justify-center mt-5 bg-orange-200 p-10 text-3xl">
+   
+  <h1>Welcome Home</h1>
 
-  useEffect(() => {
-    document.documentElement.classList.toggle("dark", theme === "dark");
-  }, [theme]);
-  return (
-    <div>
-      <Button
-        onClick={() => {
-          if (theme === "dark") {
-            dispatch(makeItToLight());
-          } else {
-            dispatch(makeItToDark());
-          }
-        }}
-        variant="default"
-      >
-        <LuMoonStar className="w-8 h-8" />
-      </Button>
-    </div>
-  );
+  </div>
+  </div>
+)
 };
 
 export default Home;
