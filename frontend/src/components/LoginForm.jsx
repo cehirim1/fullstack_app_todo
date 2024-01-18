@@ -11,11 +11,15 @@ import { useState } from "react";
 import { useLoginMutation, useSignupMutation } from "@/store/API/UserAuthAPI";
 import { toast } from "./ui/use-toast";
 import { ToastAction } from "@/components/ui/toast";
+import { toast as reactToastify } from "react-toastify";
 
 export default function LoginForm() {
   const [login, { isLoading, isError, error, isSuccess, data }] =
     useLoginMutation();
-  const [signup] = useSignupMutation();
+  const [
+    signup,
+    { isError: signupIsError, data: signupData, error: signupError },
+  ] = useSignupMutation();
 
   const [loginData, setLoginData] = useState({ email: "", password: "" }); //state for existing users
   const [user, setUser] = useState({ email: "", password: "" }); //stores state for new users
@@ -23,11 +27,12 @@ export default function LoginForm() {
   //handles new user submission
   const signupSubmit = async (event) => {
     event.preventDefault();
-    console.log(user);
 
-    await signup(user)
-      .unwrap()
-      .then((res) => console.log(res));
+    await reactToastify.promise(signup(user).unwrap(), {
+      pending: "Creating account...",
+      success: "Account created!",
+      error: "Uh oh! Something went wrong.",
+    });
   };
 
   //retrieves new user information
@@ -38,19 +43,18 @@ export default function LoginForm() {
   //handles login submit event for existing users
   const loginSubmit = async (event) => {
     event.preventDefault();
-    console.log(loginData);
 
-    await login(loginData)
-      .unwrap()
-      .then((res) => console.log(res));
+    await reactToastify.promise(login(loginData).unwrap(), {
+      pending: "Logging in...",
+      success: "Logged in!",
+      error: "Uh oh! Something went wrong.",
+    });
   };
 
   //gets user information for existing users
   const handleChange = (event) => {
     setLoginData({ ...loginData, [event.target.name]: event.target.value });
   };
-
-  if (isLoading) return <div>Loading...</div>;
 
   if (isError) {
     toast({
