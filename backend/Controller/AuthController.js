@@ -9,7 +9,7 @@ export const createUser = async (req, res) => {
 
     await UserModel.create({ email, password: hashedPassword });
 
-    res.status(201).json({ email, hashedPassword });
+    res.status(201).json({ message: "User created" });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
@@ -42,4 +42,4 @@ export const loginUser = async (req, res) => {
 };
 
 //crud with API - frontend
-//login and logout logic for frontend an backend 
+//login and logout logic for frontend an backend

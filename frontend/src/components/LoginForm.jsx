@@ -8,39 +8,37 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 
-import { useLoginMutation, useSignupMutation} from "@/store/API/UserAuthAPI";
+import { useLoginMutation, useSignupMutation } from "@/store/API/UserAuthAPI";
 import { toast } from "./ui/use-toast";
 import { ToastAction } from "@/components/ui/toast";
-import Home from "@/pages/Home";
 
 export default function LoginForm() {
   const [login, { isLoading, isError, error, isSuccess, data }] =
     useLoginMutation();
-    const [signup] = useSignupMutation();
+  const [signup] = useSignupMutation();
 
-  const [loginData, setLoginData] = useState({ email: "", password: "" });//state for existing users
-  const [user, setUser] = useState({ email: "", password: "" });//stores state for new users
+  const [loginData, setLoginData] = useState({ email: "", password: "" }); //state for existing users
+  const [user, setUser] = useState({ email: "", password: "" }); //stores state for new users
 
   //handles new user submission
-  const signupSubmit = async (event)=>{
+  const signupSubmit = async (event) => {
     event.preventDefault();
     console.log(user);
 
-    await signup(loginData)
+    await signup(user)
       .unwrap()
       .then((res) => console.log(res));
-  }
-
+  };
 
   //retrieves new user information
-  const updateUser=(e)=>{
+  const updateUser = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
-  }
+  };
 
   //handles login submit event for existing users
   const loginSubmit = async (event) => {
     event.preventDefault();
-   console.log(loginData);
+    console.log(loginData);
 
     await login(loginData)
       .unwrap()
@@ -63,95 +61,84 @@ export default function LoginForm() {
     });
   }
 
-  
-
   return (
     <>
-       <Home/>
-   
-    <div
-    
-      key="1"
-      className="bg-white shadow-md rounded-lg p-4 max-w-md mx-auto mt-4"
-    >
-   
-      <Tabs className="w-full" defaultValue="login">
-        <TabsList className="flex border-b">
-          <TabsTrigger className="flex-1 text-center py-2" value="login">
-            Login
-          </TabsTrigger>
-          <TabsTrigger className="flex-1 text-center py-2" value="signup">
-            Sign Up
-          </TabsTrigger>
-        </TabsList>
-        <TabsContent value="login">
-          <form onSubmit={loginSubmit} className="py-4">
-            <div className="space-y-2">
-              <Label htmlFor="login-email">Email</Label>
-              <Input
-                id="login-email"
-                placeholder="m@example.com"
-                required
-                type="email"
-                name="email"
-                value={loginData.email}
-                onChange={handleChange}
-              />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="login-password">Password</Label>
-              <Input
-                name="password"
-                id="login-password"
-                required
-                type="password"
-                value={loginData.password}
-                onChange={handleChange}
-              />
-            </div>
-            <Button className="w-full my-4" type="submit">
+      <div key="1" className="shadow-md rounded-lg p-4 max-w-md mx-auto mt-4">
+        <Tabs className="w-full" defaultValue="login">
+          <TabsList className="flex border-b">
+            <TabsTrigger className="flex-1 text-center py-2" value="login">
               Login
-            </Button>
-            <div className="space-y-2">
-              <Button className="w-full" variant="outline">
-                <ChromeIcon className="mr-2 h-4 w-4" />
-                Login with Google
-              </Button>
-              <Button className="w-full" variant="outline">
-                Login with Facebook
-              </Button>
-            </div>
-          </form>
-        </TabsContent>
-        <TabsContent value="signup">
-          <div className="py-4">
-         
-            <div className="space-y-2">
-         
-              <Label htmlFor="signup-email">Email</Label>
-              <Input
-              name="email"
-                id="signup-email"
-                placeholder="m@example.com"
-                required
-                type="email"
-               onChange={updateUser}
-               value={user.email}
-              />
-            </div>
-          
+            </TabsTrigger>
+            <TabsTrigger className="flex-1 text-center py-2" value="signup">
+              Sign Up
+            </TabsTrigger>
+          </TabsList>
+          <TabsContent value="login">
+            <form onSubmit={loginSubmit} className="py-4">
               <div className="space-y-2">
-                <Label htmlFor="signup-password">Password</Label>
+                <Label htmlFor="login-email">Email</Label>
                 <Input
-                name="password"
-                  id="signup-password"
+                  id="login-email"
+                  placeholder="m@example.com"
                   required
-                  type="password"
-               onChange={updateUser}
-               value={user.password}
+                  type="email"
+                  name="email"
+                  value={loginData.email}
+                  onChange={handleChange}
                 />
               </div>
-              <Button className="w-full my-4" type="submit" onClick={signupSubmit}>
+              <div className="space-y-2">
+                <Label htmlFor="login-password">Password</Label>
+                <Input
+                  name="password"
+                  id="login-password"
+                  required
+                  type="password"
+                  value={loginData.password}
+                  onChange={handleChange}
+                />
+              </div>
+              <Button className="w-full my-4" type="submit">
+                Login
+              </Button>
+              <div className="space-y-2">
+                <Button className="w-full" variant="outline">
+                  <ChromeIcon className="mr-2 h-4 w-4" />
+                  Login with Google
+                </Button>
+                <Button className="w-full" variant="outline">
+                  Login with Facebook
+                </Button>
+              </div>
+            </form>
+          </TabsContent>
+          <TabsContent value="signup">
+            <form onSubmit={signupSubmit} className="py-4">
+              <div className="space-y-2">
+                <Label htmlFor="email">Email</Label>
+                <Input
+                  name="email"
+                  id="email"
+                  placeholder="m@example.com"
+                  required
+                  type="email"
+                  onChange={updateUser}
+                  value={user.email}
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="password">Password</Label>
+                <Input
+                  name="password"
+                  id="password"
+                  required
+                  type="password"
+                  onChange={updateUser}
+                  value={user.password}
+                />
+              </div>
+              <Button className="w-full my-4" type="submit">
                 Sign Up
               </Button>
               <div className="space-y-2">
@@ -162,11 +149,10 @@ export default function LoginForm() {
                   Sign up with Facebook
                 </Button>
               </div>
-       
-          </div>
-        </TabsContent>
-      </Tabs>
-    </div>
+            </form>
+          </TabsContent>
+        </Tabs>
+      </div>
     </>
   );
 }
