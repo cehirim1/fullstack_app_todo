@@ -15,4 +15,21 @@ export const generateToken = (id) => {
   );
 };
 
-export const authenticateToken = (req, res, next) => {};
+export const authenticateToken = (req, res, next) => {
+  //verify token in header authorization
+  const token = req.headers["authorization"];
+  if (!token) {
+    res.status(403).json({
+      message: "Unauthorized",
+    });
+  }
+  jwt.verify(token, "1111aaassssdddd", (err, decodedToken) => {
+    if (err) {
+      return res
+        .status(401)
+        .json({ message: "invalid token or token expired" });
+    }
+    req.userID = decodedToken.userID;
+    next();
+  });
+};

@@ -12,8 +12,11 @@ import { useLoginMutation, useSignupMutation } from "@/store/API/UserAuthAPI";
 import { toast } from "./ui/use-toast";
 import { ToastAction } from "@/components/ui/toast";
 import { toast as reactToastify } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { userToken } from "@/store/slice/userSlice";
 
 export default function LoginForm() {
+  const dispatch = useDispatch();
   const [login, { isLoading, isError, error, isSuccess, data }] =
     useLoginMutation();
   const [
@@ -44,11 +47,13 @@ export default function LoginForm() {
   const loginSubmit = async (event) => {
     event.preventDefault();
 
-    await reactToastify.promise(login(loginData).unwrap(), {
-      pending: "Logging in...",
-      success: "Logged in!",
-      error: "Uh oh! Something went wrong.",
-    });
+    await reactToastify
+      .promise(login(loginData).unwrap(), {
+        pending: "Logging in...",
+        success: "Logged in!",
+        error: "Uh oh! Something went wrong.",
+      })
+      .then((res) => dispatch(userToken(res?.token)));
   };
 
   //gets user information for existing users

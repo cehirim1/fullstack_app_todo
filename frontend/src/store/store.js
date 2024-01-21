@@ -14,14 +14,15 @@ const persistConfig = {
 
 const persistedSystemReducer = persistReducer(
   persistConfig,
-  systemSlice.reducer,
-  userSlice.reducer
+  systemSlice.reducer
 );
+
+const persistedUserReducer = persistReducer(persistConfig, userSlice.reducer);
 
 export const store = configureStore({
   reducer: {
     system: persistedSystemReducer,
-    // [x]: nameOftheAPI.reducer,
+    user: persistedUserReducer,
     [todoAPI.reducerPath]: todoAPI.reducer,
     [UserAuthAPI.reducerPath]: UserAuthAPI.reducer,
   },

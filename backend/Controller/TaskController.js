@@ -5,8 +5,9 @@ import { UserModel } from "../Model/UserModel.js";
 
 export const createTask = async (req, res) => {
   try {
-    const { task, deadline, status, description, userOwner } = req.body;
-    const findUserOwner = await UserModel.findById(userOwner);
+    const { task, deadline, status, description } = req.body;
+    const { userID } = req;
+    const findUserOwner = await UserModel.findById(userID);
     if (!findUserOwner) {
       return res.status(404).json({ error: "user not found" });
     }
@@ -17,7 +18,7 @@ export const createTask = async (req, res) => {
       deadline,
       status,
       description,
-      userOwner,
+      userOwner: userID,
     });
     return res.status(201).json({ message: "New Task Created", createTask });
   } catch (error) {
@@ -28,16 +29,16 @@ export const createTask = async (req, res) => {
 // GET ALL TASKS
 
 export const getData = async (req, res) => {
-  const { userId } = req.params;
+  const { userID } = req;
   try {
-    const findUser = await UserModel.findById(userId);
+    const findUser = await UserModel.findById(userID);
     if (!findUser) {
       return res.status(404).json({ error: "user not found" });
     }
 
-    const findTask = await TaskModel.find({ userOwner: userId });
+    const findTask = await TaskModel.find({ userOwner: userID });
 
-    res.status(200).json({ message: "hello world!", findTask });
+    res.status(200).json(findTask);
   } catch (err) {
     res.status(500).json({ error: "request not sent" });
   }
@@ -75,6 +76,4 @@ export const updateTask = async (req, res) => {
   } catch (err) {
     res.status(500).json({ error: "request not sent" });
   }
-
-  
 };

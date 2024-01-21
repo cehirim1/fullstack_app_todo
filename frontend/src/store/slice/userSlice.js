@@ -9,12 +9,10 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     userToken: (state, action) => {
-     state.userToken = action.payload;
+      state.token = action.payload;
     },
-   
-   
+    resetToken: () => initialState,
   },
 });
 
-export const { userToken } =
-  userSlice.actions;
+export const { userToken, resetToken } = userSlice.actions;

@@ -8,6 +8,7 @@ import {
 import { getData } from "./Controller/TaskController.js";
 import { getDB } from "./db.js";
 import cors from "cors";
+import { authenticateToken } from "./JWT/JWT.js";
 const app = express();
 app.use(express.json());
 app.use(cors());
@@ -17,9 +18,9 @@ const connect = getDB();
 //  CRUD -> POST, GET, PUT, DELETE
 // JSON
 
-app.get("/:userId", getData);
+app.get("/", authenticateToken, getData);
 
-app.post("/create-task", createTask);
+app.post("/create-task", authenticateToken, createTask);
 app.delete("/delete-task/:id", deleteTask);
 app.put("/update-task/:id", updateTask);
 
