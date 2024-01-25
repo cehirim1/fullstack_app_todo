@@ -14,8 +14,10 @@ import { ToastAction } from "@/components/ui/toast";
 import { toast as reactToastify } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { userToken } from "@/store/slice/userSlice";
+import { useNavigate } from "react-router-dom";
 
 export default function LoginForm() {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [login, { isLoading, isError, error, isSuccess, data }] =
     useLoginMutation();
@@ -53,7 +55,8 @@ export default function LoginForm() {
         success: "Logged in!",
         error: "Uh oh! Something went wrong.",
       })
-      .then((res) => dispatch(userToken(res?.token)));
+      .then((res) => dispatch(userToken(res?.token)))
+      .then(() => navigate("/dashboard"));
   };
 
   //gets user information for existing users
