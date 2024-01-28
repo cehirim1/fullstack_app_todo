@@ -9,11 +9,11 @@
 ## Concepts
 
 * routes ✅
-* dynamic routes
 * protected routes ✅
 * jwt tokens generation ✅
-* jwt tokens authentication
-* login feature
+* jwt tokens authentication ✅
+* login feature ✅
 * RTK Query (redux toolkit query) ✅
-* rtk query tags
+* rtk query tags ✅
+* CRUD operations
 * stripe payments

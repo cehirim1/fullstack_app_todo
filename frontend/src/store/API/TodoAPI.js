@@ -23,7 +23,20 @@ export const todoAPI = createApi({
       }),
       invalidatesTags: ["Todo"],
     }),
+
+    createOneTask: builder.mutation({
+      query: (body) => ({
+        url: `/create-task`,
+        method: "POST",
+        body,
+      }),
+      invalidatesTags: ["Todo"],
+    }),
   }),
 });
 
-export const { useGetAllTasksQuery, useDeleteOneTaskMutation } = todoAPI;
+export const {
+  useGetAllTasksQuery,
+  useDeleteOneTaskMutation,
+  useCreateOneTaskMutation,
+} = todoAPI;

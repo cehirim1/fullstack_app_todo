@@ -14,7 +14,7 @@ import {
   ContextMenuTrigger,
 } from "@/components/ui/context-menu";
 
-export function OptionsMenu({ children, handleDelete }) {
+export function OptionsMenu({ children, handleDelete, handleUpdate }) {
   return (
     <ContextMenu>
       <ContextMenuTrigger>{children}</ContextMenuTrigger>
