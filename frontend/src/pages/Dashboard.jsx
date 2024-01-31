@@ -41,7 +41,7 @@ const Dashboard = () => {
           description: "",
           status: "incomplete",
           deadline: Date.now(),
-        })
+        }),
       )
       .catch((err) => console.log(err));
   };

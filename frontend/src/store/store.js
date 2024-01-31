@@ -14,7 +14,7 @@ const persistConfig = {
 
 const persistedSystemReducer = persistReducer(
   persistConfig,
-  systemSlice.reducer
+  systemSlice.reducer,
 );
 
 const persistedUserReducer = persistReducer(persistConfig, userSlice.reducer);
